@@ -4,6 +4,7 @@ import static java.util.Map.entry;
 import static net.minecraft.resources.ResourceLocation.withDefaultNamespace;
 import com.mojang.blaze3d.platform.NativeImage;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import moe.caramel.chameleon.Main;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -91,7 +92,7 @@ public final class ModConfig extends Settings<ModConfig> {
         this.iconLocation = this.getMutable(
             "icon-location",
             ResourceLocation::tryParse,
-            (Minecraft.ON_OSX ? ORIGINAL_MAC_ICON : ORIGINAL_WIN_ICON)
+            (Main.ON_OSX ? ORIGINAL_MAC_ICON : ORIGINAL_WIN_ICON)
         );
     }
 
@@ -112,7 +113,7 @@ public final class ModConfig extends Settings<ModConfig> {
         } else {
             iconSupplier = ResourceIo.create(client.getResourceManager().getResource(icon).get());
         }
-        if (Minecraft.ON_OSX) {
+        if (Main.ON_OSX) {
             MacosUtil.loadIcon(iconSupplier);
         } else {
             ModConfig.setWindowsIcon(client, iconSupplier);
@@ -136,7 +137,7 @@ public final class ModConfig extends Settings<ModConfig> {
             images.height(image.getHeight());
             images.pixels(value);
 
-            GLFW.glfwSetWindowIcon(client.getWindow().getWindow(), images.position(0));
+            GLFW.glfwSetWindowIcon(client.getWindow().handle(), images.position(0));
         } finally {
             if (value != null) {
                 MemoryUtil.memFree(value);

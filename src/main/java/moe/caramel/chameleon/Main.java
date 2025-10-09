@@ -7,6 +7,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.resources.ResourceLocation;
@@ -20,6 +21,11 @@ public final class Main implements ModInitializer {
      * Toast Message Queue
      */
     public static final Queue<Toast> INIT_TOAST_QUEUE = Queues.newArrayDeque();
+
+    /**
+     * {@code true} if Minecraft is running on macOS.
+     */
+    public static final boolean ON_OSX = Util.getPlatform() == Util.OS.OSX;
 
     @Override
     public void onInitialize() {

@@ -62,14 +62,14 @@ public abstract class MixinMinecraft {
                     Component.translatable("caramel.chameleon.resetToast.title"),
                     Component.translatable("caramel.chameleon.resetToast.desc")
                 ));
-                final ResourceLocation icon = (Minecraft.ON_OSX ? ORIGINAL_MAC_ICON : ORIGINAL_WIN_ICON);
+                final ResourceLocation icon = (Main.ON_OSX ? ORIGINAL_MAC_ICON : ORIGINAL_WIN_ICON);
                 config.iconLocation.update(null, icon);
                 resource = this.getResourceManager().getResource(icon);
             }
             iconSupplier = ResourceIo.create(resource.get());
         }
 
-        if (Minecraft.ON_OSX) {
+        if (Main.ON_OSX) {
             MacosUtil.loadIcon(iconSupplier);
         } else {
             ModConfig.setWindowsIcon(Minecraft.getInstance(), iconSupplier);

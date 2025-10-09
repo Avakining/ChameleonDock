@@ -1,5 +1,5 @@
 plugins {
-    id("fabric-loom") version "1.10-SNAPSHOT"
+    id("fabric-loom") version "1.11-SNAPSHOT"
 }
 
 base {
@@ -12,18 +12,18 @@ java.toolchain {
     languageVersion.set(JavaLanguageVersion.of(21))
 }
 
-loom {
-    accessWidenerPath.set(file("src/main/resources/chameleon.accesswidener"))
-}
-
 repositories {
+    maven(url = "https://maven.parchmentmc.org/") // parchment
     maven(url = "https://maven.terraformersmc.com/") // mod-menu
 }
 
 dependencies {
     minecraft("com.mojang", "minecraft", property("minecraft_version") as String)
     compileOnly("ca.weblite", "java-objc-bridge", "1.1")
-    mappings(loom.officialMojangMappings())
+    mappings(loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-1.21.9:2025.10.05@zip")
+    })
 
     modImplementation("net.fabricmc", "fabric-loader", property("loader_version") as String)
     modImplementation(fabricApi.module("fabric-command-api-v2", property("fabric_version") as String))

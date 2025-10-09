@@ -1,5 +1,6 @@
 package moe.caramel.chameleon.gui;
 
+import moe.caramel.chameleon.Main;
 import moe.caramel.chameleon.util.ModConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -7,6 +8,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -64,7 +66,7 @@ public final class ChangeDockIconScreen extends Screen {
             super(client, ChangeDockIconScreen.this.width, ChangeDockIconScreen.this.height - 70, 32, 20);
 
             for (final ResourceLocation resource : ModConfig.GET_ICON_SET.apply(client)) {
-                if (!Minecraft.ON_OSX && resource.getPath().endsWith(".icns")) {
+                if (!Main.ON_OSX && resource.getPath().endsWith(".icns")) {
                     continue;
                 }
 
@@ -103,22 +105,21 @@ public final class ChangeDockIconScreen extends Screen {
             }
 
             @Override
-            public void render(
-                final GuiGraphics graphics, final int index,
-                final int y, final int x, final int rowWidth, final int rowHeight,
-                final int mouseX, final int mouseY, final boolean hover, final float delta
-            ) {
+            public void renderContent(final GuiGraphics graphics, int mouseX, int mouseY, boolean hover, float delta) {
                 final String iconLocation = this.icon.toString();
                 graphics.drawString(
-                    ChangeDockIconScreen.this.font, iconLocation,
+                    ChangeDockIconScreen.this.font,
+                    iconLocation,
                     IconSelectionList.this.width / 2 - ChangeDockIconScreen.this.font.width(iconLocation) / 2,
-                    y + 4, COLOR_WHITE, false
+                    this.getY() + 6,
+                    COLOR_WHITE,
+                    false
                 );
             }
 
             @Override
-            public boolean mouseClicked(final double xPos, final double yPos, final int action) {
-                if (action != 0) {
+            public boolean mouseClicked(final MouseButtonEvent event, final boolean doubleClick) {
+                if (event.input() != 0) {
                     return false;
                 } else {
                     IconSelectionList.this.setSelected(this);

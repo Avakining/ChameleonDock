@@ -1,8 +1,8 @@
 package moe.caramel.chameleon.mixin;
 
+import moe.caramel.chameleon.Main;
 import moe.caramel.chameleon.util.MacosUtil;
 import net.minecraft.client.GuiMessage;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ChatComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,21 +22,21 @@ public final class MixinChatComponent {
         at = @At(value = "TAIL")
     )
     private void addMessage(final GuiMessage message, final CallbackInfo ci) {
-        if (Minecraft.ON_OSX && this.newMessageSinceScroll) {
+        if (Main.ON_OSX && this.newMessageSinceScroll) {
             MacosUtil.setBadgeLabel(MIDDLE_DOT);
         }
     }
 
     @Inject(method = "resetChatScroll", at = @At(value = "TAIL"))
     private void resetChatScroll(final CallbackInfo ci) {
-        if (Minecraft.ON_OSX) {
+        if (Main.ON_OSX) {
             MacosUtil.setBadgeLabel(null);
         }
     }
 
     @Inject(method = "scrollChat", at = @At(value = "TAIL"))
     private void scrollChat(CallbackInfo ci) {
-        if (Minecraft.ON_OSX && !this.newMessageSinceScroll) {
+        if (Main.ON_OSX && !this.newMessageSinceScroll) {
             MacosUtil.setBadgeLabel(null);
         }
     }
