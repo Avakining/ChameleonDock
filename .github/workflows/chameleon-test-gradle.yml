@@ -1,4 +1,4 @@
-name: Build Chameleon
+name: Test Chameleon Gradle
 
 on:
   push:
