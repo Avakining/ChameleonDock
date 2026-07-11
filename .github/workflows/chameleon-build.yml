@@ -2,34 +2,30 @@ name: Build Chameleon
 
 on:
   push:
-    branches:
-    - master
+    branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     
     steps:
-      - name: checkout repository
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v4
       
-      - name: validate gradle wrapper
-        uses: gradle/actions/wrapper-validation@v6
+      - uses: gradle/actions/wrapper-validation@v3
       
-      - name: setup jdk
-        uses: actions/setup-java@v5
+      - name: Set up JDK
+        uses: actions/setup-java@v4
         with:
           java-version: '25'
-          distribution: 'microsoft'
-      
+          distribution: 'zulu'
+          
       - name: 'Build with Gradle'
         run: |
           export BUILD_NUMBER=${{ github.run_number }}
-          chmod +x ./gradlew
-          ./gradlew build
+          ./gradlew build --no-daemon --stacktrace
       
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: Chameleon-${{ github.run_number }}
           path: build/libs/*.jar
