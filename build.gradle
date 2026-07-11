@@ -62,7 +62,7 @@ jar {
 }
 
 // configure the maven publication
-/* publishing {
+publishing {
     publications {
         create("mavenJava", MavenPublication) {
             from components.java
@@ -76,4 +76,4 @@ jar {
         // The repositories here will be used for publishing your artifact, not for
         // retrieving dependencies.
     }
-} */
+}
