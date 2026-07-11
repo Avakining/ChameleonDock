@@ -39,7 +39,6 @@ public final class ChameleonCommand {
         dispatcher.register(literal("chameleon").executes(context -> {
             final Minecraft client = Minecraft.getInstance();
 	        client.wrapRunnable(() -> client.setScreenAndShow(new ChangeDockIconScreen(null)));
-	        ;
 	        return 0;
         }).then(argument(ICON_NAME, IdentifierArgument.id()).suggests(SUGGEST).executes(context -> {
                 final Minecraft client = Minecraft.getInstance();
