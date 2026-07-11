@@ -26,4 +26,4 @@ jobs:
         run: |
           export BUILD_NUMBER=${{ github.run_number }}
           chmod +x ./gradlew
-          ./gradlew assemble --scan
+          ./gradlew assemble
