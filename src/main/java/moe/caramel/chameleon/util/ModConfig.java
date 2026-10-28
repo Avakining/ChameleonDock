@@ -13,10 +13,16 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.dedicated.Settings;
 import net.minecraft.server.packs.resources.IoSupplier;
 import org.jetbrains.annotations.NotNull;
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWImage;
+//import org.lwjgl.glfw.GLFW;
+//import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
+import org.lwjgl.sdl.SDL;
+import org.lwjgl.sdl.SDL_Surface;
+import org.lwjgl.sdl.SDLTray;
+import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.platform.IconSet;
+import net.minecraft.server.packs.PackMetadataResources;
 
 import java.io.File;
 import java.io.IOException;
@@ -138,7 +144,8 @@ public final class ModConfig extends Settings<ModConfig>{
 		ByteBuffer value = null;
 		
 		try (final MemoryStack stack = MemoryStack.stackPush(); final NativeImage image = NativeImage.read(icon.get());){
-			final GLFWImage.Buffer images = GLFWImage.malloc(1, stack);
+			//final GLFWImage.Buffer images = GLFWImage.malloc(1, stack);
+
 			
 			value = MemoryUtil.memAlloc(image.getWidth() * image.getHeight() * 4);
 			value.asIntBuffer().put(image.getPixelsABGR());
@@ -148,6 +155,8 @@ public final class ModConfig extends Settings<ModConfig>{
 			images.pixels(value);
 			
 			GLFW.glfwSetWindowIcon(client.getWindow().handle(), images.position(0));
+
+			
 		} finally{
 			if (value != null){
 				MemoryUtil.memFree(value);

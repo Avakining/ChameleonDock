@@ -69,7 +69,7 @@ public abstract class MixinMinecraft{
 		final String[] vanillaPath = ModConfig.VANILLA_ICON_SET.get(location);
 		
 		final IoSupplier<InputStream> iconSupplier;
-		if (vanillaPath != null){
+		/*if (vanillaPath != null){
 			iconSupplier = Objects.requireNonNull(vanillaPackResources.getRootResource(vanillaPath));
 		} else{
 			Optional<Resource> resource = this.getResourceManager().getResource(location);
@@ -86,6 +86,6 @@ public abstract class MixinMinecraft{
 			MacosUtil.loadIcon(iconSupplier);
 		} else{
 			ModConfig.setWindowsIcon(Minecraft.getInstance(), iconSupplier);
-		}
+		}*/
 	}
 }

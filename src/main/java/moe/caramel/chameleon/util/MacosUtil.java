@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  macOS Utilities.
  */
-public final class MacosUtil extends com.mojang.blaze3d.platform.MacosUtil{
+public final class MacosUtil {
 	
 	/**
 	 Sets the badge label for the dock.
